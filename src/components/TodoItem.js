@@ -18,14 +18,25 @@ class TodoItem extends React.Component{
         const { id , title} = this.props.todo;//destruction so you pull out id and title from this.props.tod
         return (
             <div style={this.getStyle()}>
-                <p id="title"><input type="checkbox" onChange={this.props.checkboxClicked.bind(this,id)}/>{title}</p>
+                <p id="title">
+                    <input type="checkbox" onChange={this.props.checkboxClicked.bind(this,id)}/>
+                    {title}
+                    <button style={btnStyle} onClick={this.props.deleted.bind(this,id)}>X</button>
+                </p>
             </div>
         )
     }
     //from here we call this.props.checkboxClicked and this prop is in the todos class.
     //checkboxClicked.bind(this,this.props.todo.id) bind passes the id of the todo item clicked alway to app.js
 }
-
+const btnStyle = {
+    background: 'red',
+    borderRadius:'80%',//makes it more circular
+    color:'white',
+    curser: 'pointer',
+    float: 'right',
+    padding: '5px 9px'
+}
 TodoItem.propTypes = {
     title : PropTypes.string.isRequired
 }

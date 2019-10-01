@@ -9,7 +9,7 @@ class Todos extends React.Component{
         return this.props.todos.map((eachTodo)=>{
             return (
                 <div id = "border">
-                    <TodoItem key = {eachTodo.id} todo={eachTodo} checkboxClicked={this.props.checkboxClicked}/>
+                    <TodoItem key = {eachTodo.id} todo={eachTodo} deleted={this.props.deleted} checkboxClicked={this.props.checkboxClicked}/>
                 </div>//we receive the prop from the todoitem class and we go up another level
             )
         }
