@@ -4,6 +4,10 @@ import './App.css';
 import Todos from './components/Todos'
 
 class App extends React.Component{
+  checkboxClicked = (id) => {
+    this.state.todos[id-1].completed = !this.state.todos[id-1].completed;
+    this.setState({})
+  }//after changing the todos array inside the state , the changes will not go into effect unless you call the setState function.
   state = {
     todos: [
       {
@@ -14,7 +18,7 @@ class App extends React.Component{
       {
         id:2,
         title: 'Take outded trash',
-        completed: false
+        completed: true
       },
       {
         id:3,
@@ -28,7 +32,7 @@ class App extends React.Component{
     return (
 
         <div className="App" id = "parentdiv">
-            <Todos todos={this.state.todos}/>
+            <Todos todos={this.state.todos} checkboxClicked={this.checkboxClicked}/>
         {/*    passing the todos array to our todos component as a prop. this is like a property.*/}
         </div>
     );
