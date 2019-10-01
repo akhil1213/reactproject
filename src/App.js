@@ -2,8 +2,13 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Todos from './components/Todos'
-
+import Addtodo from './components/Addtodo'
 class App extends React.Component{
+  addTodo = (message) =>{
+     const todo = {id:this.state.todos.length+1,title:message,completed:false}
+     this.state.todos.push(todo)
+     this.setState({})
+  }
   checkboxClicked = (id) => {
     this.state.todos[id-1].completed = !this.state.todos[id-1].completed;
     this.setState({todos:this.state.todos})
@@ -39,8 +44,8 @@ class App extends React.Component{
   render() {
     console.log(this.state.todos)
     return (
-
         <div className="App" id = "parentdiv">
+            <Addtodo addTodo={this.addTodo}/>
             <Todos todos={this.state.todos} checkboxClicked={this.checkboxClicked} deleted={this.deleted}/>
         {/*    passing the todos array to our todos component as a prop. this is like a property.*/}
         </div>
