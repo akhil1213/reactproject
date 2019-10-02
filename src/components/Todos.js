@@ -19,7 +19,10 @@ class Todos extends React.Component{
 
 //PropTypes its good practice
 Todos.propTypes = {
-    todos: PropTypes.array.isRequired
+    todos: PropTypes.array.isRequired,
+    checkboxClicked: PropTypes.func.isRequired,
+    deleted: PropTypes.func.isRequired
 }
+/*Why React PropTypes are important. Props are the mechanism React uses to let components communicate with each other. A parent component can pass it's child(ren) named prop values, which the child can then use in its internal logic.*/
 
 export default Todos;

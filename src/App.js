@@ -9,9 +9,14 @@ import {BrowserRouter as Router, Route} from 'react-router-dom'
 import axios from 'axios'
 class App extends React.Component{
   addTodo = (message) =>{
-     const todo = {id:this.state.todos.length+1,title:message,completed:false}
-     this.state.todos.push(todo)
-     this.setState({})
+     //const todo = {id:this.state.todos.length+1,title:message,completed:false}
+     //this.state.todos.push(todo)
+      axios.post('https://jsonplaceholder.typicode.com/todos',{
+          title:message,
+          completed:false
+      }).then(res =>  this.setState({todos:[...this.state.todos,res.data]})//... means copy over and then add res.data
+      )
+
   }
   checkboxClicked = (id) => {
     this.state.todos[id-1].completed = !this.state.todos[id-1].completed;
@@ -24,6 +29,10 @@ class App extends React.Component{
           todo.id !== id
       )}
       )
+      axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`).then(res=>this.setState({todos: this.state.todos.filter(todo =>
+              todo.id !== id
+          )}
+      ))//uses backticks because to delete we need to pass in parameter of id to url
   }
 
   state = {
