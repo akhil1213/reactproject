@@ -3,6 +3,9 @@ import logo from './logo.svg';
 import './App.css';
 import Todos from './components/Todos'
 import Addtodo from './components/Addtodo'
+import About from './components/pages/About'
+import Header from './components/Header'
+import {BrowserRouter as Router, Route} from 'react-router-dom'
 class App extends React.Component{
   addTodo = (message) =>{
      const todo = {id:this.state.todos.length+1,title:message,completed:false}
@@ -42,13 +45,29 @@ class App extends React.Component{
     ]
   }
   render() {
-    console.log(this.state.todos)
     return (
-        <div className="App" id = "parentdiv">
-            <Addtodo addTodo={this.addTodo}/>
-            <Todos todos={this.state.todos} checkboxClicked={this.checkboxClicked} deleted={this.deleted}/>
-        {/*    passing the todos array to our todos component as a prop. this is like a property.*/}
-        </div>
+        //Each page gets its own Route in the app.js file.
+        <Router>
+                <div className="App" id = "parentdiv">
+                    <Route exact path = "/" component={Header}></Route>
+                    <Route exact path = "/Todos" render={props => (
+                        /*if you don't specify exact path then these routes get concatenated so
+                         /about will include / and about path so both will show on the same page when you go
+                         to the /About path*/
+                        <React.Fragment>
+                            <Addtodo addTodo={this.addTodo}/>
+                            <Todos todos={this.state.todos} checkboxClicked={this.checkboxClicked} deleted={this.deleted}/>
+                        </React.Fragment>
+                    )}>
+                    </Route>
+                    {/*    passing the todos array to our todos component as a prop. this is like a property.*/}
+                </div>
+            <Route path = "/About" component={About}>
+                <About/>
+            </Route>
+        </Router>
+
+
     );
   }
 }
