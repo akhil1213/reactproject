@@ -6,6 +6,7 @@ import Addtodo from './components/Addtodo'
 import About from './components/pages/About'
 import Header from './components/Header'
 import {BrowserRouter as Router, Route} from 'react-router-dom'
+import axios from 'axios'
 class App extends React.Component{
   addTodo = (message) =>{
      const todo = {id:this.state.todos.length+1,title:message,completed:false}
@@ -26,24 +27,15 @@ class App extends React.Component{
   }
 
   state = {
-    todos: [
-      {
-        id:1,
-        title: 'Take out trash',
-        completed: false
-      },
-      {
-        id:2,
-        title: 'Take outded trash',
-        completed: false
-      },
-      {
-        id:3,
-        title: 'Eat dinner w wife',
-        completed: false
-      }
-    ]
+    todos: []
   }
+  componentDidMount() {
+      axios.get('https://jsonplaceholder.typicode.com/todos').then(res =>
+          this.setState({todos:res.data})
+      )
+  }
+
+    //render is a lifecycle method
   render() {
     return (
         //Each page gets its own Route in the app.js file.
